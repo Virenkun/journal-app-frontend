@@ -17,24 +17,24 @@ function Dashboard() {
     },
   ]);
 
-  verifyToken(JSON.parse(localStorage.getItem("accessToken")))
-    .then((res) => {
-      setUserId(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  // verifyToken(JSON.parse(localStorage.getItem("accessToken")))
+  //   .then((res) => {
+  //     setUserId(res);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 
-  useEffect(() => {
-    getJournal(userId)
-      .then((res) => {
-        setJournals(res);
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [journals, setJournals, userId]);
+  // useEffect(() => {
+  //   getJournal(userId)
+  //     .then((res) => {
+  //       setJournals(res);
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;

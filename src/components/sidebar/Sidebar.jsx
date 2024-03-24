@@ -6,15 +6,6 @@ export const Sidebar = () => {
   const [isCreatingJournal, setIsCreatingJournal] = useState(false);
   const [journalTitle, setJournalTitle] = useState("");
   const [journalContent, setJournalContent] = useState("");
-  const [userId, setUserId] = useState("");
-
-  verifyToken(JSON.parse(localStorage.getItem("accessToken")))
-    .then((res) => {
-      setUserId(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
 
   const handleCreateJournal = () => {
     setIsCreatingJournal(true);
@@ -22,20 +13,13 @@ export const Sidebar = () => {
 
   const handleCancel = () => {
     setIsCreatingJournal(false);
-    // Reset journal title and content
     setJournalTitle("");
     setJournalContent("");
   };
 
   const handleSaveJournal = () => {
-    // Save the journal to the database
-    createJournal({ title: journalTitle, content: journalContent }, userId);
-
-    // Reset journal title and content
     setJournalTitle("");
     setJournalContent("");
-
-    // Close the journal creation form
     setIsCreatingJournal(false);
   };
 
