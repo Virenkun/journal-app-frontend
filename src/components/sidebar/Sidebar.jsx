@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { createJournal } from "../../service/journalService/journalService";
-import { verifyToken } from "../../service/userService/userservice";
 
 export const Sidebar = () => {
   const [isCreatingJournal, setIsCreatingJournal] = useState(false);
@@ -40,15 +38,11 @@ export const Sidebar = () => {
                 <img src="src/assets/create-icon.svg" className="h-[22px]" />
                 <span className="mx-2 text-sm font-medium">Create Journal</span>
               </a>
-              {/* Add other navigation items */}
             </div>
-            {/* Add other navigation sections */}
           </nav>
-          {/* Add other content */}
         </div>
       </aside>
 
-      {/* Journal Creation Form */}
       {isCreatingJournal && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-8 rounded-lg shadow-lg">

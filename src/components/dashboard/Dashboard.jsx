@@ -8,8 +8,7 @@ import { Sidebar } from "../sidebar/Sidebar";
 import { verifyToken } from "../../service/userService/userservice";
 
 function Dashboard() {
-  const { isAuthenticated } = useAuthContext();
-  const [userId, setUserId] = useState(""); // Hardcoded user id for now
+  const { isAuthenticated, userId } = useAuthContext();
   const [journals, setJournals] = useState([
     {
       title: "",
@@ -17,24 +16,17 @@ function Dashboard() {
     },
   ]);
 
-  // verifyToken(JSON.parse(localStorage.getItem("accessToken")))
-  //   .then((res) => {
-  //     setUserId(res);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-
-  // useEffect(() => {
-  //   getJournal(userId)
-  //     .then((res) => {
-  //       setJournals(res);
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    if (isAuthenticated) {
+      getJournal(userId)
+        .then((response) => {
+          setJournals(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;

@@ -5,10 +5,7 @@ import { getUserId } from "../../auth/auth";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-
-
 function Login() {
-
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
   const [loginDetails, setLoginDetails] = useState({
@@ -42,13 +39,6 @@ function Login() {
         console.log(error);
       });
   };
-
-  useEffect(() => {
-    if(isAuthenticated){
-      console.log("User is authenticated");
-    }
-  }, [isAuthenticated]);
-
 
   if (isAuthenticated) {
     return <Navigate to="/dashboard" />;
