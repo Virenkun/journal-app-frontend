@@ -14,19 +14,20 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      verifyToken(JSON.parse(localStorage.getItem("accessToken")))
-        .then((response) => {
-          setUserId(response.id);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  });
+    verifyToken(JSON.parse(localStorage.getItem("accessToken")))
+      .then((response) => {
+        console.log("AUTH CONTECT RES", response);
+        setUserId(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, userId }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -17,16 +17,23 @@ function Dashboard() {
   ]);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      getJournal(userId)
-        .then((response) => {
-          setJournals(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    verifyToken(JSON.parse(localStorage.getItem("accessToken")))
+      .then((response) => {
+        console.log("AUTH CONTECT RES", response);
+        getJournal(response.userId)
+          .then((data) => {
+            setJournals(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
+
+  console.log("USERID", userId);
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
