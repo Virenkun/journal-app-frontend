@@ -20,3 +20,14 @@ export const createJournal = async (journal, userId) => {
     console.log(err);
   }
 };
+
+export const deleteJournal = async (journalId) => {
+  try {
+    const res = await axios.delete(
+      `http://localhost:8081/api/journal/${journalId}`,
+    );
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

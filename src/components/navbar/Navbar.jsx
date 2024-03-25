@@ -1,10 +1,30 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { logOut } from "../../auth/auth";
+import { verifyToken, getUser } from "../../service/userService/userservice";
 
 export default function Navbar() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState({});
+
+  useEffect(() => {
+    const accessToken = JSON.parse(localStorage.getItem("accessToken"));
+
+    if (accessToken) {
+      verifyToken(accessToken).then((response) => {
+        if (response.error) {
+          logOut();
+          setIsAuthenticated(false);
+        } else {
+          getUser(response.userId).then((user) => {
+            setUserDetails(user);
+            setIsAuthenticated(true);
+          });
+        }
+      });
+    }
+  });
 
   const handleLogout = () => {
     logOut();
@@ -12,7 +32,7 @@ export default function Navbar() {
   };
 
   return (
-    <div>
+    <div className="">
       <div className="relative w-full bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:px-6 lg:px-8">
           <div className="inline-flex items-center space-x-2">
@@ -78,7 +98,11 @@ export default function Navbar() {
           )}
 
           {isAuthenticated && (
-            <div className="">
+            <div className="flex items-center gap-6">
+              <img src="src/assets/user-png.png" className="h-10" />
+              <div className="text-slate-700 font-semibold">
+                {userDetails.name}
+              </div>
               <button
                 className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 onClick={handleLogout}

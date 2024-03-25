@@ -36,7 +36,7 @@ function Dashboard() {
   return (
     <>
       <div className="flex">
-        <div>
+        <div className="">
           <Sidebar />
         </div>
         <div className="py-10 h-max flex flex-wrap gap-5">
@@ -47,6 +47,7 @@ function Dashboard() {
                   key={index}
                   title={journal.title}
                   content={journal.content}
+                  journalId={journal.id}
                 />
               </div>
             ))}

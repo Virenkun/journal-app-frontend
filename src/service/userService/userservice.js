@@ -38,3 +38,14 @@ export const verifyToken = async (accessToken) => {
       console.log(error);
     });
 };
+
+export const getUser = async (userId) => {
+  return await axios
+    .get(`http://localhost:8081/api/user/${userId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
