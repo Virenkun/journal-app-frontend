@@ -8,13 +8,7 @@ import { Sidebar } from "../sidebar/Sidebar";
 import { verifyToken } from "../../service/userService/userservice";
 
 function Dashboard() {
-  const { isAuthenticated, userId } = useAuthContext();
-  const [journals, setJournals] = useState([
-    {
-      title: "",
-      content: "",
-    },
-  ]);
+  const { isAuthenticated, userId, journals, setJournals } = useAuthContext();
 
   useEffect(() => {
     verifyToken(JSON.parse(localStorage.getItem("accessToken")))
@@ -31,7 +25,7 @@ function Dashboard() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [setJournals]);
 
   console.log("USERID", userId);
 
@@ -45,14 +39,16 @@ function Dashboard() {
         <div>
           <Sidebar />
         </div>
-        <div className="mx-10 my-10 flex flex-warp gap-5">
+        <div className="py-10 h-max flex flex-wrap gap-5">
           {journals &&
             journals.map((journal, index) => (
-              <Card
-                key={index}
-                title={journal.title}
-                content={journal.content}
-              />
+              <div key={index} className="">
+                <Card
+                  key={index}
+                  title={journal.title}
+                  content={journal.content}
+                />
+              </div>
             ))}
           {!journals && <p>No journals available</p>}
         </div>

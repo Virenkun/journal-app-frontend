@@ -8,6 +8,12 @@ import PropTypes from "prop-types";
 export const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
+  const [journals, setJournals] = useState([
+    {
+      title: "",
+      content: "",
+    },
+  ]);
 
   useEffect(() => {
     setIsAuthenticated(isLoggedIn());
@@ -26,7 +32,13 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, userId }}
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        userId,
+        journals,
+        setJournals,
+      }}
     >
       {children}
     </AuthContext.Provider>
