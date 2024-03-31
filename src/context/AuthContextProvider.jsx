@@ -6,10 +6,12 @@ import { verifyToken } from "../service/userService/userservice";
 import PropTypes from "prop-types";
 
 export const AuthContextProvider = ({ children }) => {
+  const [check, setCheck] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
   const [journals, setJournals] = useState([
     {
+      id: "",
       title: "",
       content: "",
     },
@@ -38,6 +40,8 @@ export const AuthContextProvider = ({ children }) => {
         userId,
         journals,
         setJournals,
+        check,
+        setCheck,
       }}
     >
       {children}

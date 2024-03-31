@@ -6,9 +6,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Sidebar } from "../sidebar/Sidebar";
 import { verifyToken } from "../../service/userService/userservice";
+import { set } from "husky";
 
 function Dashboard() {
-  const { isAuthenticated, userId, journals, setJournals } = useAuthContext();
+  const { isAuthenticated, userId, journals, setJournals, setCheck, check } =
+    useAuthContext();
 
   useEffect(() => {
     verifyToken(JSON.parse(localStorage.getItem("accessToken")))
@@ -16,6 +18,7 @@ function Dashboard() {
         console.log("AUTH CONTECT RES", response);
         getJournal(response.userId)
           .then((data) => {
+            console.log("JOURNALS", data);
             setJournals(data);
           })
           .catch((error) => {
@@ -25,7 +28,7 @@ function Dashboard() {
       .catch((error) => {
         console.log(error);
       });
-  }, [setJournals]);
+  }, [setJournals, check]);
 
   console.log("USERID", userId);
 

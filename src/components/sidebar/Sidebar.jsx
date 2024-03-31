@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { createJournal } from "../../service/journalService/journalService";
 import { useAuthContext } from "../../context/AuthContext";
-import { set } from "husky";
+import { check } from "prettier";
 
 export const Sidebar = () => {
   const [isCreatingJournal, setIsCreatingJournal] = useState(false);
   const [journalTitle, setJournalTitle] = useState("");
   const [journalContent, setJournalContent] = useState("");
-  const { userId, setJournals, journals } = useAuthContext();
+  const { userId, setJournals, journals, setCheck, check } = useAuthContext();
 
   const handleCreateJournal = () => {
     setIsCreatingJournal(true);
@@ -20,10 +20,11 @@ export const Sidebar = () => {
   };
 
   const handleSaveJournal = () => {
-    setJournals([
-      ...journals,
-      { title: journalTitle, content: journalContent },
-    ]);
+    // setJournals([
+    //   ...journals,
+    //   { title: journalTitle, content: journalContent },
+    // ]);
+    setCheck(!check);
     createJournal(
       { title: journalTitle, content: journalContent },
       userId.userId,
